@@ -1,0 +1,48 @@
+https://docs.microsoft.com/en-us/azure/site-recovery/hyper-v-deployment-planner-overview
+
+#GetVMList discovery
+ASRDeploymentPlanner.exe -Operation GetVMlist -ServerListFile "M:\Hyper-V_ProfiledData\ServerList.txt" -User corp\administrator -OutputFile "M:\Hyper-V_ProfiledData\VMListFile.txt"
+
+ASRDeploymentPlanner.exe -Operation GetVMList -Directory "M:\Hyper-V_ProfiledData" -ServerListFile "M:\Hyper-V_ProfiledData\ServerList.txt" -User Hyper-VUser1
+
+
+#Profile Hyper-V VMs
+#Profile VMs for 30 days, and find the throughput from on-premises to Azure
+ASRDeploymentPlanner.exe -Operation StartProfiling -virtualization Hyper-V -Directory "M:\Hyper-V_ProfiledData" -VMListFile "M:\Hyper-V_ProfiledData\VMListFile.txt"  -NoOfDaysToProfile 30 -User Corp\Administrator -StorageAccountName  asrspfarm1 -StorageAccountKey <your Storage Account Key>
+
+#Profile VMs for 15 days
+ASRDeploymentPlanner.exe -Operation StartProfiling -Virtualization Hyper-V -Directory "M:\Hyper-V_ProfiledData" -VMListFile "M:\vCenter1_ProfiledData\VMListFile.txt"  -NoOfDaysToProfile  15  -User Corp\Administrator
+
+#Profile VMs for 60 minutes for a quick test of the tool
+ASRDeploymentPlanner.exe -Operation StartProfiling -Virtualization Hyper-V -Directory "M:\Hyper-V_ProfiledData" -VMListFile "M:\Hyper-V_ProfiledData\VMListFile.txt"  -NoOfMinutesToProfile 60 -User Corp\Administrator
+
+#Profile VMs for 2 hours for a proof of concept
+ASRDeploymentPlanner.exe -Operation StartProfiling -Virtualization Hyper-V -Directory "M:\Hyper-V_ProfiledData" -VMListFile "M:\Hyper-V_ProfiledData\VMListFile.txt"  -NoOfHoursToProfile 2 -User Corp\Administrator
+
+#Generate a report
+#Generate a report with default values when the profiled data is on the local drive
+ASRDeploymentPlanner.exe -Operation GenerateReport -virtualization Hyper-V -Directory "M:\Hyper-V_ProfiledData" -VMListFile "M:\Hyper-V_ProfiledData\VMListFile.txt"
+
+#Generate a report with a specific bandwidth that you will provision for the replication
+ASRDeploymentPlanner.exe -Operation GenerateReport -Virtualization Hyper-V -Directory "M:\Hyper-V_ProfiledData" -VMListFile "M:\Hyper-V_ProfiledData\VMListFile.txt" -Bandwidth 100
+
+#Generate a report with a 5 percent growth factor instead of the default 30 percent
+ASRDeploymentPlanner.exe -Operation GenerateReport -Virtualization Hyper-V -Directory "M:\Hyper-V_ProfiledData" -VMListFile "M:\Hyper-V_ProfiledData\VMListFile.txt" -GrowthFactor 5
+
+Generate a report with a subset of profiled data
+ASRDeploymentPlanner.exe -Operation GenerateReport -virtualization Hyper-V -Directory "M:\Hyper-V_ProfiledData" -VMListFile "M:\Hyper-V_ProfiledData\VMListFile.txt" -StartDate  01-10-2017:12:30 -EndDate 01-19-2017:12:30
+
+#Generate a report for a 5-minute RPO
+ASRDeploymentPlanner.exe -Operation GenerateReport -Virtualization Hyper-V -Directory "M:\Hyper-V_ProfiledData" -VMListFile "M:\Hyper-V_ProfiledData\VMListFile.txt"  -DesiredRPO 5
+
+
+
+
+
+
+
+
+
+
+
+https://www.checkyourlogs.net/getting-started-with-the-azure-site-recovery-deployment-planner-tool-for-hyperv-azuresiterecovery/
