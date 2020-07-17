@@ -25,7 +25,7 @@ Start-Sleep -Seconds 20
 
 New-AzRoleAssignment -RoleDefinitionName Contributor -ServicePrincipalName $sp.ApplicationId # -Scope defaults to subscription level
 
-$TenantId = (Get-AzSubscription -SubscriptionName "Microsoft Azure Sponsorship").TenantId
+$TenantId = (Get-AzSubscription -SubscriptionName "MSDN Platforms").TenantId
 
 $ApplicationId = (Get-AzADApplication -DisplayNameStartWith 'psautoauth').ApplicationId
 
